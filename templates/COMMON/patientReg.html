@@ -1,0 +1,112 @@
+{% extends "COMMON/commonBase.html" %}
+{% block header %}
+{% load static %}
+<!-- page-title -->
+<section class="page-title p_relative centred">
+    <div class="bg-layer" style="background-image: url(/static/assets/images/background/page-title.jpg);"></div>
+    <div class="auto-container">
+        <div class="content-box">
+            <h1>Patient Registration</h1>
+            <ul class="bread-crumb clearfix">
+                <li><a href="/index">Home</a></li>
+                <li>Patient Registration</li>
+            </ul>
+        </div>
+    </div>
+</section>
+<!-- page-title end -->
+
+
+<!-- contact-style-three -->
+<section class="contact-style-three pt_90 pb_120">
+    <div class="auto-container">
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 form-column">
+                <div class="form-inner mr_40">
+                    <div class="sec-title mb_50">
+                        <h2 class="text-center">Patient Registration</h2>
+                    </div>
+                    <form method="post" id="contact-form" class="default-form" enctype="multipart/form-data"
+                        onsubmit="return checkImageSelected()">
+                        {% csrf_token %}
+                        <div class="row clearfix">
+                            <div class="image-upload text-center" style="margin-top: -30px;">
+                                <label for="file-input">
+                                    <img id="img" src="/static/assets/images/upload.png" alt="Upload Image"
+                                        title="Upload Image" style="margin: auto" />
+                                </label>
+                                <p class="mb-2">Choose Image</p>
+                                <input id="file-input" required onchange="readURL(this)" name="imgfile" type="file" />
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12 form-group">
+                                <input type="text" name="name" placeholder="Your Name" required="">
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12 form-group">
+                                <input type="email" name="email" placeholder="Your email" required="">
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12 form-group">
+                                <input type="text" pattern="[6789][0-9]{9}" maxlength="10" minlength="10" name="phone"
+                                    required="" placeholder="Phone">
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12 form-group">
+                                <select name="gender" required="">
+                                    <option selected disabled>Gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Others">Others</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12 form-group">
+                                <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" name="dob"
+                                    required="" placeholder="Date Of Birth">
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12 form-group">
+                                <input type="password" name="password" required="" placeholder="Password"
+                                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                                    title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters">
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                                <textarea name="address" required placeholder="Address"></textarea>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 form-group message-btn">
+                                <button class="theme-btn btn-one float-end" type="submit"
+                                    name="submit-form"><span>Register Now</span></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- <div class="col-lg-4 col-md-12 col-sm-12 image-column">
+                <figure class="image-box"><img src="{% static 'assets/images/resource/contact-1.jpg' %}" alt="">
+                </figure>
+            </div> -->
+        </div>
+    </div>
+</section>
+<!-- contact-style-three end -->
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $("#img").attr("src", e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+
+<script>
+    function checkImageSelected() {
+        var fileInput = document.getElementById('file-input');
+        if (fileInput.value === "") {
+            alert('Please select an image to upload.');
+            return false; // Prevents the form from submitting
+        }
+        return true; // Allows the form to submit
+    }
+</script>
+
+{% endblock %}

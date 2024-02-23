@@ -1,0 +1,77 @@
+{% extends 'USER/userBase.html' %}
+{% block header %}
+{% load static %}
+
+<!-- page-title -->
+<section class="page-title p_relative centred">
+    <div class="bg-layer" style="background-image: url(/static/assets/images/background/page-title.jpg);"></div>
+    <div class="auto-container">
+        <div class="content-box">
+            <h1>Upload & Predict</h1>
+            <ul class="bread-crumb clearfix">
+                <li><a href="/userhome">Home</a></li>
+                <li>Prediction</li>
+            </ul>
+        </div>
+    </div>
+</section>
+<!-- page-title end -->
+
+
+
+<!-- contact-style-three -->
+<section class="contact-style-three pt_90 pb_120">
+    <div class="auto-container">
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 form-column">
+                <div class="form-inner mr_40">
+                    <div class="sec-title mb_50">
+                        <h2 class="text-center">Upload Image</h2>
+                    </div>
+                    <form method="post" id="contact-form" class="default-form" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row clearfix">
+                            <div class="col-lg-4 col-md-4 col-sm-4 form-group"></div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 form-group">
+                                <input type="file" name="imagefile" accept="Image/*" required="" class="form-control">
+                            </div>
+                            <div class="col-lg-8 col-md-8 col-sm-8 form-group message-btn">
+                                <button class="theme-btn btn-one float-end" type="submit"
+                                    name="submit-form"><span>Predict</span></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- <div class="col-lg-4 col-md-12 col-sm-12 image-column">
+                <figure class="image-box"><img src="{% static 'assets/images/resource/contact-1.jpg' %}" alt="">
+                </figure>
+            </div> -->
+
+            <div class="container text-center mt-5">
+                <!-- <img id="output_image" width="400" height="250"/> -->
+                {% if prediction %}
+                <h2>Prediction Result:</h2>
+                <p> Cancer {{ prediction }}</p>
+                <img src="../static/media/{{image_path}}" alt="uploaded image" width="400" height="250" />
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- contact-style-three end -->
+
+
+<!-- <script type='text/javascript'>
+    function preview_image(event) {
+        var reader = new FileReader();
+        reader.onload = function () {
+            var output = document.getElementById('output_image');
+            output.src = reader.result;
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script> -->
+
+{% endblock %}
